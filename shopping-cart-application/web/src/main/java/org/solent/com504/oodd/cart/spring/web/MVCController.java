@@ -136,6 +136,18 @@ public class MVCController {
         model.addAttribute("selectedPage", "contact");
         return "contact";
     }
+    @RequestMapping(value = "/catalog", method = {RequestMethod.GET, RequestMethod.POST})
+    public String catalogCart(Model model, HttpSession session) {
+
+        // get sessionUser from session
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+        List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
+        model.addAttribute("availableItems", availableItems);
+        
+        model.addAttribute("SelectedPage", "admin");
+        return "catalog";
+    }
 
 
     /*
