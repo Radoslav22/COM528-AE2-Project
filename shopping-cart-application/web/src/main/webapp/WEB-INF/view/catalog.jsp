@@ -35,7 +35,7 @@
                 <td></td>
                 <td>
                     <!-- post avoids url encoded parameters -->
-                    <form action="./home" method="get">
+                    <form action="./catalog" method="post">
                         <button type="submit" >-</button>
                         <input type="hidden" name="itemName" value="${item.name}">
                         <input type="hidden" name="action" value="changestock">
