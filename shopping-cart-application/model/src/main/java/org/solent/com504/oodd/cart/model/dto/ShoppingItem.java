@@ -21,6 +21,7 @@ public class ShoppingItem {
     private String uuid=null;
     private String name=null;
     private Integer quantity=0;
+    private Integer stock=0;
     private Double price=0.0;
     
     public ShoppingItem(){
@@ -74,10 +75,20 @@ public class ShoppingItem {
         this.price = price;
     }
 
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
     @Override
     public String toString() {
-        return "ShoppingItem{" + "uuuid=" + uuid + ", name=" + name + ", quantity=" + quantity + ", price=" + price + '}';
+        return "ShoppingItem{" + "id=" + id + ", uuid=" + uuid + ", name=" + name + ", quantity=" + quantity + ", stock=" + stock + ", price=" + price + '}';
     }
+
+
     
             
     

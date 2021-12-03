@@ -23,7 +23,7 @@
         <tr>
             <th>Item Name</th>
             <th>Price</th>
-            <th></th>
+            <th>Stock</th>
         </tr>
 
         <c:forEach var="item" items="${availableItems}">
@@ -31,13 +31,15 @@
             <tr>
                 <td>${item.name}</td>
                 <td>${item.price}</td>
+                <td>${item.stock}</td>
                 <td></td>
                 <td>
                     <!-- post avoids url encoded parameters -->
                     <form action="./home" method="get">
+                        <button type="submit" >-</button>
                         <input type="hidden" name="itemName" value="${item.name}">
-                        <input type="hidden" name="action" value="addItemToCart">
-                        <button type="submit" >Add Item</button>
+                        <input type="hidden" name="action" value="changestock">
+                        <button type="submit" >+</button>
                     </form> 
                 </td>
             </tr>

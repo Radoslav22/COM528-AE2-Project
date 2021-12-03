@@ -137,14 +137,38 @@ public class MVCController {
         return "contact";
     }
     @RequestMapping(value = "/catalog", method = {RequestMethod.GET, RequestMethod.POST})
-    public String catalogCart(Model model, HttpSession session) {
+    public String catalogCart(
+            @RequestParam(name = "action", required = false) String action,
+            @RequestParam(name = "itemName", required = false) String itemName,
+            @RequestParam(name = "itemUUID", required = false) String itemUuid,
+            @RequestParam(name = "stock", required = false) String stock,
+
+            Model model, HttpSession session) {
+        
+           String message = "";
+        String errorMessage = "";
 
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
-        List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
-        model.addAttribute("availableItems", availableItems);
+
+        if (action == null) {
+            // do nothing but show page
+        } else if ("changestock".equals(action)) {
+           try{
+               Integer stockInt = Integer.parseInt(stock);
+               shoppingService.changeStock(itemName, stockInt);
+           }catch (Exception ex){
+               errorMessage = "could not change name for stock stock="+stock+" "+ex.toString();
+           }
+          
+        } 
         
+                List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
+        model.addAttribute("availableItems", availableItems);
+        model.addAttribute("selectedPage", "catalog");
+             model.addAttribute("message", message);
+        model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("SelectedPage", "admin");
         return "catalog";
     }
