@@ -38,7 +38,8 @@
                     <form action="./catalog" method="post">
                         <button type="submit" >-</button>
                         <input type="hidden" name="itemName" value="${item.name}">
-                        <input type="hidden" name="action" value="changestock">
+                        
+                        <input type="hidden" name="action" value="${changestock}">
                         <button type="submit" >+</button>
                     </form> 
                 </td>
