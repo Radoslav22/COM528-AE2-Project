@@ -32,16 +32,19 @@
                 <td>${item.name}</td>
                 <td>${item.price}</td>
                 <td>${item.stock}</td>
+                
                 <td></td>
                 <td>
                     <!-- post avoids url encoded parameters -->
-                    <form action="./catalog" method="post">
+                    <form method="POST">
                         <button type="submit" >-</button>
                         <input type="hidden" name="itemName" value="${item.name}">
-                        
-                        <input type="hidden" name="action" value="${changestock}">
-                        <button type="submit" >+</button>
-                    </form> 
+                        <input type="hidden" name="action" value="changestock">
+                        <input type="text" name="stock" value="${item.stock}">
+                        <input type="submit" value="changestock" >
+                        <-<!-- <button type="submit" value="${changestock}" >+</button> -->
+                    </form>    
+                     
                 </td>
             </tr>
 

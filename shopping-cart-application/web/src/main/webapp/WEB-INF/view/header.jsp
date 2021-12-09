@@ -54,6 +54,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="./users">Manage Users</a></li>
                                         <li><a href="./catalog">Manage Catalogue</a></li>
+                                        <li><a href="./bank">Manage Catalogue</a></li>
                                     </ul>
                                 </li>
                             </c:if>

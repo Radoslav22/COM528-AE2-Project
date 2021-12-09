@@ -166,11 +166,24 @@ public class MVCController {
         
                 List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
         model.addAttribute("availableItems", availableItems);
+        model.addAttribute("stock", stock);
         model.addAttribute("selectedPage", "catalog");
-             model.addAttribute("message", message);
+        model.addAttribute("message", message);
         model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("SelectedPage", "admin");
         return "catalog";
+    }
+    
+    @RequestMapping(value = "/bank", method = {RequestMethod.GET, RequestMethod.POST})
+    public String BankProperties(Model model, HttpSession session) {
+
+        // get sessionUser from session
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+        
+        // used to set tab selected
+        model.addAttribute("selectedPage", "bank");
+        return "bank";
     }
 
 
