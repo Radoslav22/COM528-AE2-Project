@@ -175,7 +175,15 @@ public class MVCController {
     }
     
     @RequestMapping(value = "/bank", method = {RequestMethod.GET, RequestMethod.POST})
-    public String BankProperties(Model model, HttpSession session) {
+    public String BankProperties(
+            
+            @RequestParam (name = "bankurl", required = true) String BankUrl,
+            @RequestParam (name = "accname", required = true) String AccName,
+            @RequestParam (name = "enddate", required = true) String EndDate,
+            @RequestParam (name = "cardnumber", required = true) String CardNumber,
+            @RequestParam (name = "cvv", required = true) String Cvv,
+            @RequestParam (name = "issuenumber", required = true) String IssueNumber,
+            Model model, HttpSession session) {
 
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
@@ -183,6 +191,7 @@ public class MVCController {
         
         // used to set tab selected
         model.addAttribute("selectedPage", "bank");
+        model.addAttribute("bankurl", "urlStr");
         return "bank";
     }
 
