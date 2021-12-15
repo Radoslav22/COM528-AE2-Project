@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
  *
  * @author Radoslav
  */
-class PropertiesDao {
+public class PropertiesDao {
  final static Logger LOG = LogManager.getLogger(PropertiesDao.class);
 
     private File propertiesFile;

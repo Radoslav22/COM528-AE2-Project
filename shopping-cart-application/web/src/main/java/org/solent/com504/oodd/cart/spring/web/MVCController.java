@@ -13,6 +13,7 @@ import org.solent.com504.oodd.cart.model.dto.UserRole;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.service.ShoppingService;
 import org.solent.com504.oodd.cart.web.WebObjectFactory;
+import org.solent.com504.oodd.cart.web.PropertiesDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +44,7 @@ public class MVCController {
             sessionUser = new User();
             sessionUser.setUsername("anonymous");
             sessionUser.setUserRole(UserRole.ANONYMOUS);
-            session.setAttribute("sessionUser",sessionUser);
+            session.setAttribute("sessionUser", sessionUser);
         }
         return sessionUser;
     }
@@ -75,7 +76,7 @@ public class MVCController {
         // so there is one cart per sessionUser
         ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
         if (shoppingCart == null) synchronized (this) {
-           if (shoppingCart == null) {
+            if (shoppingCart == null) {
                 shoppingCart = WebObjectFactory.getNewShoppingCart();
                 session.setAttribute("shoppingCart", shoppingCart);
             }
@@ -119,7 +120,7 @@ public class MVCController {
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
-        
+
         // used to set tab selected
         model.addAttribute("selectedPage", "about");
         return "about";
@@ -131,21 +132,21 @@ public class MVCController {
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
-        
+
         // used to set tab selected
         model.addAttribute("selectedPage", "contact");
         return "contact";
     }
+
     @RequestMapping(value = "/catalog", method = {RequestMethod.GET, RequestMethod.POST})
     public String catalogCart(
             @RequestParam(name = "action", required = false) String action,
             @RequestParam(name = "itemName", required = false) String itemName,
             @RequestParam(name = "itemUUID", required = false) String itemUuid,
             @RequestParam(name = "stock", required = false) String stock,
-
             Model model, HttpSession session) {
-        
-           String message = "";
+
+        String message = "";
         String errorMessage = "";
 
         // get sessionUser from session
@@ -155,16 +156,16 @@ public class MVCController {
         if (action == null) {
             // do nothing but show page
         } else if ("changestock".equals(action)) {
-           try{
-               Integer stockInt = Integer.parseInt(stock);
-               shoppingService.changeStock(itemName, stockInt);
-           }catch (Exception ex){
-               errorMessage = "could not change name for stock stock="+stock+" "+ex.toString();
-           }
-          
-        } 
-        
-                List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
+            try {
+                Integer stockInt = Integer.parseInt(stock);
+                shoppingService.changeStock(itemName, stockInt);
+            } catch (Exception ex) {
+                errorMessage = "could not change name for stock stock=" + stock + " " + ex.toString();
+            }
+
+        }
+
+        List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
         model.addAttribute("availableItems", availableItems);
         model.addAttribute("stock", stock);
         model.addAttribute("selectedPage", "catalog");
@@ -173,25 +174,52 @@ public class MVCController {
         model.addAttribute("SelectedPage", "admin");
         return "catalog";
     }
-    
+
     @RequestMapping(value = "/bank", method = {RequestMethod.GET, RequestMethod.POST})
     public String BankProperties(
-            
-            @RequestParam (name = "bankurl", required = true) String BankUrl,
-            @RequestParam (name = "accname", required = true) String AccName,
-            @RequestParam (name = "enddate", required = true) String EndDate,
-            @RequestParam (name = "cardnumber", required = true) String CardNumber,
-            @RequestParam (name = "cvv", required = true) String Cvv,
-            @RequestParam (name = "issuenumber", required = true) String IssueNumber,
+            @RequestParam(name = "bankurl", required = false) String BankUrl,
+            @RequestParam(name = "accname", required = false) String AccName,
+            @RequestParam(name = "enddate", required = false) String EndDate,
+            @RequestParam(name = "cardnumber", required = false) String CardNumber,
+            @RequestParam(name = "cvv", required = false) String Cvv,
+            @RequestParam(name = "issuenumber", required = false) String IssueNumber,
+            @RequestParam(name = "action", required = false) String action,
             Model model, HttpSession session) {
+
+        PropertiesDao propertiesDao = WebObjectFactory.getPropertiesDao();
+
+        if (action == null) {
+            String bankUrl = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.url");
+            String admin_username = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.username");
+            String admin_enddate = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.enddate");
+            String admin_cardnumber = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.cardnumber");
+            String admin_cvv = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.cvv");
+            String admin_issuenumber = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.issuenumber");
+            
+            //      the name in the model,the variable
+            model.addAttribute("bankUrl", bankUrl);
+            model.addAttribute("admin_username", admin_username);
+            model.addAttribute("admin_enddate", admin_enddate);
+            model.addAttribute("admin_cardnumber", admin_cardnumber);
+            model.addAttribute("admin_cvv", admin_cvv);
+            model.addAttribute("admin_issuenumber", admin_issuenumber);
+        } else if (action.equals("saveproperties")) {
+            propertiesDao.setProperty("org.solent.com504.oodd.cart.web.url", BankUrl);
+            propertiesDao.setProperty("org.solent.com504.oodd.cart.web.username", AccName);
+            propertiesDao.setProperty("org.solent.com504.oodd.cart.web.enddate", EndDate);
+            propertiesDao.setProperty("org.solent.com504.oodd.cart.web.cardnumber", CardNumber);
+            propertiesDao.setProperty("org.solent.com504.oodd.cart.web.cvv", Cvv);
+            propertiesDao.setProperty("org.solent.com504.oodd.cart.web.issuenumber", IssueNumber);
+        }
 
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
-        
+
         // used to set tab selected
         model.addAttribute("selectedPage", "bank");
-        model.addAttribute("bankurl", "urlStr");
+        model.addAttribute("BankUrl", BankUrl);
+        
         return "bank";
     }
 
