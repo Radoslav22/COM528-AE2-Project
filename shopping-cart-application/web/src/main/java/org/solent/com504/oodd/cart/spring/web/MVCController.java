@@ -186,16 +186,20 @@ public class MVCController {
             @RequestParam(name = "action", required = false) String action,
             Model model, HttpSession session) {
 
+        String message = "";
+        String errorMessage = "";
+
         PropertiesDao propertiesDao = WebObjectFactory.getPropertiesDao();
 
         if (action == null) {
+            message = "Please fill the fields if there is nothing to update the Bank Properties";
             String bankUrl = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.url");
             String admin_username = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.username");
             String admin_enddate = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.enddate");
             String admin_cardnumber = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.cardnumber");
             String admin_cvv = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.cvv");
             String admin_issuenumber = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.issuenumber");
-            
+
             //      the name in the model,the variable
             model.addAttribute("bankUrl", bankUrl);
             model.addAttribute("admin_username", admin_username);
@@ -210,6 +214,9 @@ public class MVCController {
             propertiesDao.setProperty("org.solent.com504.oodd.cart.web.cardnumber", CardNumber);
             propertiesDao.setProperty("org.solent.com504.oodd.cart.web.cvv", Cvv);
             propertiesDao.setProperty("org.solent.com504.oodd.cart.web.issuenumber", IssueNumber);
+            message = "Successfully updated Bank Properties";
+        } else {
+            errorMessage = "Unknown action!";
         }
 
         // get sessionUser from session
@@ -217,9 +224,11 @@ public class MVCController {
         model.addAttribute("sessionUser", sessionUser);
 
         // used to set tab selected
+        model.addAttribute("message", message);
+        model.addAttribute("errorMessage", errorMessage);
         model.addAttribute("selectedPage", "bank");
         model.addAttribute("BankUrl", BankUrl);
-        
+
         return "bank";
     }
 
