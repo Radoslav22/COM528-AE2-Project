@@ -63,8 +63,10 @@
                             <!-- user role:  ${sessionUser.userRole}-->
                             <c:if test="${sessionUser.userRole =='ANONYMOUS'}">
                                 <li><a href="./login">Login or create a new Account</a></li>
-                                </c:if>
-                                <c:if test="${sessionUser.userRole !='ANONYMOUS'}">
+                                <li><a href="./login"> Basket</a></li>
+
+                            </c:if>
+                            <c:if test="${sessionUser.userRole !='ANONYMOUS'}">
                                 <form id="logoutForm" method="POST" action="./logout">
                                 </form>
                                 <form id="profile" method="GET" action="./viewModifyUser">
@@ -75,8 +77,12 @@
                                     ${sessionUser.username}&nbsp;&nbsp;
                                     <a onclick="document.forms['logoutForm'].submit()">Logout</a><BR>
                                     <a onclick="document.forms['profile'].submit()">User Profile</a></p>
-                                </c:if>
+
+                            </c:if>
                         </ul>
+                        <button type="button" class="btn btn-light btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
+                            Basket
+                        </button>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container-fluid -->
             </nav>
