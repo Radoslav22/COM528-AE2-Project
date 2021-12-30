@@ -84,9 +84,9 @@ public class MVCController {
         if (action == null) {
             // do nothing but show page
         } else if ("addItemToCart".equals(action)) {
-            ShoppingItem shoppingItem = shoppingService.getNewItemByName(itemName);
+            ShoppingItem shoppingItem = shoppingService.getItemByName(itemName);
             if (shoppingItem == null) {
-                message = "cannot add unknown " + itemName + " to cart";
+                message = "cannot add " + itemName + " to cart";
             } else {
                 message = "adding " + itemName + " to cart price= " + shoppingItem.getPrice();
                 shoppingCart.addItemToCart(shoppingItem);
@@ -152,7 +152,7 @@ public class MVCController {
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
-
+        System.out.println(action);
         if (action == null) {
             // do nothing but show page
         } else if ("changestock".equals(action)) {
@@ -163,6 +163,12 @@ public class MVCController {
                 errorMessage = "could not change name for stock stock=" + stock + " " + ex.toString();
             }
 
+        }
+        
+        if ("append".equals(action)) {
+            System.out.println("SADSDADASDDASDSA");
+
+            shoppingService.NewAddItem("test");
         }
 
         List<ShoppingItem> availableItems = shoppingService.getAvailableItems();

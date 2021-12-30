@@ -63,7 +63,7 @@
                             <!-- user role:  ${sessionUser.userRole}-->
                             <c:if test="${sessionUser.userRole =='ANONYMOUS'}">
                                 <li><a href="./login">Login or create a new Account</a></li>
-                                <li><a href="./login"> Basket</a></li>
+                                
 
                             </c:if>
                             <c:if test="${sessionUser.userRole !='ANONYMOUS'}">
@@ -80,7 +80,7 @@
 
                             </c:if>
                         </ul>
-                        <button type="button" class="btn btn-light btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
+                        <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
                             Basket
                         </button>
                     </div><!--/.nav-collapse -->

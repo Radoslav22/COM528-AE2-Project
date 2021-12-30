@@ -30,12 +30,9 @@ public class ShoppingServiceImpl1 implements ShoppingService {
 
     // note ConcurrentHashMap instead of HashMap if map can be altered while being read
     private Map<String, ShoppingItem> itemMap = new ConcurrentHashMap<String, ShoppingItem>();
-
-    private List<ShoppingItem> itemlist = Arrays.asList(new ShoppingItem("house", 20000.00),
-            new ShoppingItem("hen", 5.00),
-            new ShoppingItem("car", 5000.00),
-            new ShoppingItem("pet alligator", 65.00)
-    );
+    // Shopping list is in PopulateDatabaseOnStart
+    private List<ShoppingItem> itemlist = null;
+    
     public ShoppingServiceImpl1() {
 
         // initialised the hashmap
@@ -63,7 +60,7 @@ public class ShoppingServiceImpl1 implements ShoppingService {
     @Override
     public ShoppingItem getNewItemByName(String name) {
         ShoppingItem templateItem = itemMap.get(name);
-
+        //shopping items in the PopulateDatabaseOnStart file 
         if(templateItem==null) return null;
         ShoppingItem item = new ShoppingItem();
         item.setName(name);
@@ -94,5 +91,15 @@ public class ShoppingServiceImpl1 implements ShoppingService {
         item.setStock(stock);
         return shoppingItemCatalogRepository.save(item);
     }
+    
+    @Override
+    public ShoppingItem NewAddItem(String name){
+        
+        ShoppingItem item = new ShoppingItem(name, 2000.00);
+        //item.setStock(1);
+        //return shoppingItemCatalogRepository.save(item);
+        return null;
+    }
+
 
 }

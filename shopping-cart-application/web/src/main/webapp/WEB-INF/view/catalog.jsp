@@ -32,24 +32,29 @@
                 <td>${item.name}</td>
                 <td>${item.price}</td>
                 <td>${item.stock}</td>
-                
+
                 <td></td>
                 <td>
                     <!-- post avoids url encoded parameters -->
                     <form method="POST">
-                        <button type="submit" >-</button>
-                        <input type="hidden" name="itemName" value="${item.name}">
-                        <input type="hidden" name="action" value="changestock">
-                        <input type="text" name="stock" value="${item.stock}">
-                        <input type="submit" value="changestock" >
-                        <-<!-- <button type="submit" value="${changestock}" >+</button> -->
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="hidden" name="itemName" value="${item.name}" class="form-control">
+                                <input type="hidden" name="action" value="changestock">
+                                <input type="text" name="stock" value="${item.stock}" class="form-control">
+                                <input type="submit" value="changestock" class="btn btn-primary" >
+                            </div>
+                        </fieldset>
                     </form>    
-                     
                 </td>
             </tr>
-
         </c:forEach>
+
     </table>
+    <form method="POST">
+        <input type="hidden" name="action" value="append">
+        <input type="submit" value="Additem" class="btn btn-primary">
+    </form>
 
 
 

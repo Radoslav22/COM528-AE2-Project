@@ -23,5 +23,9 @@ public interface ShoppingService {
         public ShoppingItem getItemByName(String name);
         
         public ShoppingItem changeStock(String name, Integer stock);
+        
+        public ShoppingItem NewAddItem(String name);
+
+    
 
 }

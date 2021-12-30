@@ -13,12 +13,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.service.ShoppingService;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author cgallen
  */
-
+@Component
 public class ShoppingServiceImpl implements ShoppingService {
 
     // note ConcurrentHashMap instead of HashMap if map can be altered while being read
@@ -77,4 +78,8 @@ public class ShoppingServiceImpl implements ShoppingService {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public ShoppingItem NewAddItem(String name){
+        return null;
+    }
 }

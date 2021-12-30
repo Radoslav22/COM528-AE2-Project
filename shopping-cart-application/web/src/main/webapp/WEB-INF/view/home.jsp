@@ -35,9 +35,13 @@
                 <td>
                     <!-- post avoids url encoded parameters -->
                     <form action="./home" method="get">
-                        <input type="hidden" name="itemName" value="${item.name}">
-                        <input type="hidden" name="action" value="addItemToCart">
-                        <button type="submit" >Add Item</button>
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="hidden" name="itemName" value="${item.name}">
+                                <input type="hidden" name="action" value="addItemToCart">
+                                <button type="submit" class="btn btn-primary">Add Item</button>
+                            </div>
+                        </fieldset>
                     </form> 
                 </td>
             </tr>
@@ -53,7 +57,25 @@
             <th>Price</th>
             <th>Quantity</th>
         </tr>
+        <c:forEach var="item" items="${shoppingCartItems}">
 
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.price}</td>
+                <td>${item.quantity}</td>
+                <td>
+                    <!-- post avoids url encoded parameters -->
+                    <form action="./home" method="post">
+                        <fieldset>
+                            <input type="hidden" name="itemUUID" value="${item.uuid}">
+                            <input type="hidden" name="itemName" value="${item.name}">
+                            <input type="hidden" name="action" value="removeItemFromCart">
+                            <button type="submit" class="btn btn-danger">Remove Item</button>
+                        </fieldset>
+                    </form> 
+                </td>
+            </tr>
+        </c:forEach>
 
         <tr>
             <td>TOTAL</td>
@@ -82,7 +104,7 @@
                                     <input type="hidden" name="itemUUID" value="${item.uuid}">
                                     <input type="hidden" name="itemName" value="${item.name}">
                                     <input type="hidden" name="action" value="removeItemFromCart">
-                                    <button type="submit" >Remove Item</button>
+                                    <button type="submit" class="btn btn-danger">Remove Item</button>
                                 </form> 
                             </td>
                         </tr>

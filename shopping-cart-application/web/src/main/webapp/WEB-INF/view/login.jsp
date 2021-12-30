@@ -13,17 +13,25 @@
 <!-- Begin page content -->
 <main role="main" class="container">
     <H1>Login</H1>
-    <div style="color:red;">${errorMessage}</div>
-    <div style="color:green;">${message}</div>
+    <div id="error" class="alert alert-danger">${errorMessage}</div>
+    <div class="alert alert-success">${message}</div>
 
     <form action="./login" method="post">
-        <input type="hidden" name="action" value="login">
-        <p>Username <input type="text" name="username" ></input></p><BR>
-        <p>Password <input type="password" name="password" ></input></p>
-        <p><button type="submit" >Log In</button></p>
+        <fieldset>
+            <input type="hidden" name="action" value="login" />
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" name="username" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" name="password" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Log In</button>
+        </fieldset>
     </form> 
-    
-    <a href="./register">Create a new account</a>
+    <hr>
+    <a href="./register" class="btn btn-success">Create a new account</a>
 </main>
 
 

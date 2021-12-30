@@ -31,7 +31,7 @@ public class ShoppingCartImpl implements ShoppingCart {
 
     @Override
     public void addItemToCart(ShoppingItem shoppingItem) {
-        // itemMap.put(shoppingItem.getUuid(), shoppingItem);
+        //itemMap.put(shoppingItem.getUuid(), shoppingItem);
         
         // ANSWER
         boolean itemExists = false;
