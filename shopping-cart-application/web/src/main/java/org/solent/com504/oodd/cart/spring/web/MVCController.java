@@ -91,7 +91,9 @@ public class MVCController {
                 message = "adding " + itemName + " to cart price = " + shoppingItem.getPrice();
                 shoppingCart.addItemToCart(shoppingItem);
             }
-        } else if ("removeItemFromCart".equals(action)) {
+        }
+
+        if ("removeItemFromCart".equals(action)) {
             message = "removed " + itemName + " from cart";
             shoppingCart.removeItemFromCart(itemUuid);
         } else {
@@ -100,16 +102,24 @@ public class MVCController {
 
         List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
 
+        System.out.println(availableItems);
         List<ShoppingItem> shoppingCartItems = shoppingCart.getShoppingCartItems();
+
+        System.out.println(shoppingCartItems);
 
         Double shoppingcartTotal = shoppingCart.getTotal();
 
         // populate model with values
-        model.addAttribute("availableItems", availableItems);
-        model.addAttribute("shoppingCartItems", shoppingCartItems);
-        model.addAttribute("shoppingcartTotal", shoppingcartTotal);
-        model.addAttribute("message", message);
-        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute(
+                "availableItems", availableItems);
+        model.addAttribute(
+                "shoppingCartItems", shoppingCartItems);
+        model.addAttribute(
+                "shoppingcartTotal", shoppingcartTotal);
+        model.addAttribute(
+                "message", message);
+        model.addAttribute(
+                "errorMessage", errorMessage);
 
         return "home";
     }
@@ -245,10 +255,6 @@ public class MVCController {
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
 
-        
-        
-        
-        
         // used to set tab selected
         model.addAttribute("selectedPage", "contact");
         return "checkout";

@@ -31,10 +31,11 @@ public class ShoppingServiceImpl implements ShoppingService {
     // note ConcurrentHashMap instead of HashMap if map can be altered while being read
     private Map<String, ShoppingItem> itemMap = new ConcurrentHashMap<String, ShoppingItem>();
 
-    private List<ShoppingItem> itemlist = Arrays.asList(new ShoppingItem("house", 20000.00),
-            new ShoppingItem("hen", 5.00),
-            new ShoppingItem("car", 5000.00),
-            new ShoppingItem("pet alligator", 65.00)
+    private List<ShoppingItem> itemlist = Arrays.asList(
+            new ShoppingItem("511","house", 20000.00),
+            new ShoppingItem("611","hen", 5.00),
+            new ShoppingItem("711","car", 5000.00),
+            new ShoppingItem("811","pet alligator", 65.00)
     );
 
     public ShoppingServiceImpl() {
@@ -98,9 +99,9 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     public ShoppingItem NewAddItem(String name){
         
-        ShoppingItem item = new ShoppingItem(name, 2000.00);
-        item.setStock(1);
-        return shoppingItemCatalogRepository.save(item);
-        
+        //ShoppingItem item = new ShoppingItem(name, 2000.00);
+        //item.setStock(1);
+        //return shoppingItemCatalogRepository.save(item);
+        return null;
     }
 }

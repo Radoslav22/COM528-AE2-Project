@@ -28,9 +28,11 @@ public class ShoppingItem {
         
     }
 
-    public ShoppingItem(String name, Double price) {
+    public ShoppingItem(String uuuid, String name, Double price) {
+        this.uuid = uuuid;
         this.name = name;
         this.price = price;
+        
     }
 
     @Id
