@@ -74,13 +74,13 @@ public class MVCController {
 
         // note that the shopping cart is is stored in the sessionUser's session
         // so there is one cart per sessionUser
-        ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
-        if (shoppingCart == null) synchronized (this) {
-            if (shoppingCart == null) {
-                shoppingCart = WebObjectFactory.getNewShoppingCart();
-                session.setAttribute("shoppingCart", shoppingCart);
-            }
-        }
+        //ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("shoppingCart");
+        //if (shoppingCart == null) synchronized (this) {
+        //  if (shoppingCart == null) {
+        //    shoppingCart = WebObjectFactory.getNewShoppingCart();
+        //  session.setAttribute("shoppingCart", shoppingCart);
+        //}
+        //}
         if (action == null) {
             // do nothing but show page
         } else if ("addItemToCart".equals(action)) {
@@ -88,7 +88,7 @@ public class MVCController {
             if (shoppingItem == null) {
                 message = "cannot add " + itemName + " to cart";
             } else {
-                message = "adding " + itemName + " to cart price= " + shoppingItem.getPrice();
+                message = "adding " + itemName + " to cart price = " + shoppingItem.getPrice();
                 shoppingCart.addItemToCart(shoppingItem);
             }
         } else if ("removeItemFromCart".equals(action)) {
@@ -164,7 +164,7 @@ public class MVCController {
             }
 
         }
-        
+
         if ("append".equals(action)) {
             System.out.println("SADSDADASDDASDSA");
 
@@ -238,6 +238,21 @@ public class MVCController {
         return "bank";
     }
 
+    @RequestMapping(value = "/checkout", method = {RequestMethod.GET, RequestMethod.POST})
+    public String ChekoutPage(Model model, HttpSession session) {
+
+        // get sessionUser from session
+        User sessionUser = getSessionUser(session);
+        model.addAttribute("sessionUser", sessionUser);
+
+        
+        
+        
+        
+        // used to set tab selected
+        model.addAttribute("selectedPage", "contact");
+        return "checkout";
+    }
 
     /*
      * Default exception handler, catches all exceptions, redirects to friendly

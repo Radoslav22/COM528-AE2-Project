@@ -10,10 +10,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import org.solent.com504.oodd.cart.dao.impl.ShoppingItemCatalogRepository;
 import org.solent.com504.oodd.cart.model.service.ShoppingCart;
 import org.solent.com504.oodd.cart.model.dto.ShoppingItem;
 import org.solent.com504.oodd.cart.model.service.ShoppingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -21,6 +24,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ShoppingServiceImpl implements ShoppingService {
+    
+    @Autowired
+    private ShoppingItemCatalogRepository shoppingItemCatalogRepository;
 
     // note ConcurrentHashMap instead of HashMap if map can be altered while being read
     private Map<String, ShoppingItem> itemMap = new ConcurrentHashMap<String, ShoppingItem>();
@@ -70,16 +76,31 @@ public class ShoppingServiceImpl implements ShoppingService {
 
     @Override
     public ShoppingItem getItemByName(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<ShoppingItem> itemList = shoppingItemCatalogRepository.findByName(name);
+        if (itemList.isEmpty()) {
+            throw new IllegalArgumentException("unknown stock item name=" + name);
+        }
+        return itemList.get(0);
     }
 
     @Override
+    @Transactional
     public ShoppingItem changeStock(String name, Integer stock) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<ShoppingItem> itemList = shoppingItemCatalogRepository.findByName(name);
+        if (itemList.isEmpty()) {
+            throw new IllegalArgumentException("unknown stock item name=" + name);
+        }
+        ShoppingItem item = itemList.get(0);
+        item.setStock(stock);
+        return shoppingItemCatalogRepository.save(item);
     }
 
     @Override
     public ShoppingItem NewAddItem(String name){
-        return null;
+        
+        ShoppingItem item = new ShoppingItem(name, 2000.00);
+        item.setStock(1);
+        return shoppingItemCatalogRepository.save(item);
+        
     }
 }

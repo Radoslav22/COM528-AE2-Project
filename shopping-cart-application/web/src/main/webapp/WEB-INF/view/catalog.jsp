@@ -37,14 +37,14 @@
                 <td>
                     <!-- post avoids url encoded parameters -->
                     <form method="POST">
-                        <fieldset>
-                            <div class="form-group">
-                                <input type="hidden" name="itemName" value="${item.name}" class="form-control">
+                        
+                            
+                                <input type="hidden" name="itemName" value="${item.name}" >
                                 <input type="hidden" name="action" value="changestock">
-                                <input type="text" name="stock" value="${item.stock}" class="form-control">
-                                <input type="submit" value="changestock" class="btn btn-primary" >
-                            </div>
-                        </fieldset>
+                                <input type="text" name="stock" value="${item.stock}" >
+                                <input type="submit" value="changestock" >
+                            
+                        
                     </form>    
                 </td>
             </tr>

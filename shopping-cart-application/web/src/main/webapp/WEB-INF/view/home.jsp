@@ -48,7 +48,7 @@
 
         </c:forEach>
     </table>
-
+    
     <H1>Shopping cart</H1>
     <table class="table">
 
@@ -57,6 +57,7 @@
             <th>Price</th>
             <th>Quantity</th>
         </tr>
+
         <c:forEach var="item" items="${shoppingCartItems}">
 
             <tr>
@@ -66,57 +67,22 @@
                 <td>
                     <!-- post avoids url encoded parameters -->
                     <form action="./home" method="post">
-                        <fieldset>
-                            <input type="hidden" name="itemUUID" value="${item.uuid}">
-                            <input type="hidden" name="itemName" value="${item.name}">
-                            <input type="hidden" name="action" value="removeItemFromCart">
-                            <button type="submit" class="btn btn-danger">Remove Item</button>
-                        </fieldset>
+                        <input type="hidden" name="itemUUID" value="${item.uuid}">
+                        <input type="hidden" name="itemName" value="${item.name}">
+                        <input type="hidden" name="action" value="removeItemFromCart">
+                        <button type="submit" >Remove Item</button>
                     </form> 
                 </td>
             </tr>
         </c:forEach>
-
         <tr>
             <td>TOTAL</td>
             <td>${shoppingcartTotal}</td>
         </tr>
     </table>
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Basket Content</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <c:forEach var="item" items="${shoppingCartItems}">
 
-                        <tr>
-                            <td>${item.name}</td>
-                            <td>${item.price}</td>
-                            <td>${item.quantity}</td>
-                            <td>
-                                <!-- post avoids url encoded parameters -->
-                                <form action="./home" method="post">
-                                    <input type="hidden" name="itemUUID" value="${item.uuid}">
-                                    <input type="hidden" name="itemName" value="${item.name}">
-                                    <input type="hidden" name="action" value="removeItemFromCart">
-                                    <button type="submit" class="btn btn-danger">Remove Item</button>
-                                </form> 
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Checkout</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
+  
 
 
 
