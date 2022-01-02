@@ -49,37 +49,7 @@
         </c:forEach>
     </table>
 
-    <H1>Shopping cart</H1>
-    <table class="table">
-
-        <tr>
-            <th>Item Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-        </tr>
-
-        <c:forEach var="item" items="${shoppingCartItems}">
-
-            <tr>
-                <td>${item.name}</td>
-                <td>${item.price}</td>
-                <td>${item.quantity}</td>
-                <td>
-                    <!-- post avoids url encoded parameters -->
-                    <form action="./home" method="post">
-                        <input type="hidden" name="itemUUID" value="${item.uuid}">
-                        <input type="hidden" name="itemName" value="${item.name}">
-                        <input type="hidden" name="action" value="removeItemFromCart">
-                        <button type="submit" >Remove Item</button>
-                    </form> 
-                </td>
-            </tr>
-        </c:forEach>
-        <tr>
-            <td>TOTAL</td>
-            <td>${shoppingcartTotal}</td>
-        </tr>
-    </table>
+    
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -89,35 +59,35 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body"> 
                     <c:forEach var="item" items="${shoppingCartItems}">
                         <div class="col-sm">
                             <div class="row no-gutters">
                                 <div class="col-8 col-sm-4 col-md-3"><h4>${item.name}</h4></div>
-                                <div class="col-8 col-sm-4 col-md-3"><h4>${item.price}</h4></div>
+                                <div class="col-8 col-sm-4 col-md-3"><h4>£${item.price}</h4></div>
                                 <div class="col-8 col-sm-4 col-md-3"><h4>${item.quantity}</h4></div>
-                                <div class="col-4 col-md-2 col-md-pull-0">
-                                    <form action="./home" method="post">
-                                        <input type="hidden" name="itemUUID" value="${item.uuid}">
-                                        <input type="hidden" name="itemName" value="${item.name}">
-                                        <input type="hidden" name="action" value="removeItemFromCart">
-                                        <button type="submit" class="btn btn-danger" >Remove Item</button>
-                                    </form>
-                                </div>
+                                <div class="col-4 col-md-2 col-md-offset-0">
+                                <form action="./home" method="post">
+                                    <input type="hidden" name="itemUUID" value="${item.uuid}">
+                                    <input type="hidden" name="itemName" value="${item.name}">
+                                    <input type="hidden" name="action" value="removeItemFromCart">
+                                    <button type="submit" class="btn btn-danger" >Remove Item</button>
+                                </form>
                             </div>
                         </div>
-                    </c:forEach>
-                    
-                </div>
-                
-                <div class="modal-footer">
-                    <div class="col-4 col-sm-4 col-md-4 col-md-pull-1 "><h4>Total: £${shoppingcartTotal}</h4></div>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button onclick="window.location.href='./checkout'" type="button" class="btn btn-primary">Checkout</button>
-                </div>
+                    </div>
+                    <hr/>
+                </c:forEach>
+            </div>
+
+            <div class="modal-footer">
+                <div class="col-4 col-sm-4 col-md-4 col-md-pull-1 "><h4>Total: £${shoppingcartTotal}</h4></div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="window.location.href = './checkout'" type="button" class="btn btn-primary">Checkout</button>
             </div>
         </div>
     </div>
+</div>
 
 </main>
 <jsp:include page="footer.jsp" />

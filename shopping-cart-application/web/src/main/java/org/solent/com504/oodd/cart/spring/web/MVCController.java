@@ -92,12 +92,11 @@ public class MVCController {
                 shoppingCart.addItemToCart(shoppingItem);
             }
         }
-
         if ("removeItemFromCart".equals(action)) {
             message = "removed " + itemName + " from cart";
             shoppingCart.removeItemFromCart(itemUuid);
         } else {
-            message = "unknown action=" + action;
+            message = "action=" + action;
         }
 
         List<ShoppingItem> availableItems = shoppingService.getAvailableItems();
