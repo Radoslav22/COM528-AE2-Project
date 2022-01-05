@@ -248,15 +248,47 @@ public class MVCController {
     }
 
     @RequestMapping(value = "/checkout", method = {RequestMethod.GET, RequestMethod.POST})
-    public String ChekoutPage(Model model, HttpSession session) {
+    public String ChekoutPage(
+            @RequestParam(name = "action", required = false) String action,
+            @RequestParam(name = "name", required = false) String Name,
+            @RequestParam(name = "enddate", required = false) String Enddate,
+            @RequestParam(name = "cardnumber", required = false) String Cardnumber,
+            @RequestParam(name = "cvv", required = false) String CVV,
+            @RequestParam(name = "issuenumber", required = false) String Issuenumber,
+            Model model, HttpSession session
+    ) {
 
         // get sessionUser from session
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
+        PropertiesDao propertiesDao = WebObjectFactory.getPropertiesDao();
+        
+   
+        if (action == null){
+            
+        }else if (action.equals("submituserdetails")){
+            
+            System.out.println(action);
+            System.out.println(Name);
+            System.out.println(Enddate);
+            System.out.println(Cardnumber);
+            System.out.println(CVV);
 
-        // used to set tab selected
-        model.addAttribute("selectedPage", "contact");
-        return "checkout";
+        }
+    Double shoppingcartTotal = shoppingCart.getTotal();
+
+    System.out.println (shoppingcartTotal);
+    // used to set tab selected
+
+    model.addAttribute ("name",Name);
+    model.addAttribute ("enddate",Enddate);
+    model.addAttribute ("cardnumber",Cardnumber);
+    model.addAttribute ("cvv",CVV);
+    model.addAttribute ("issuenumber",Issuenumber);
+    model.addAttribute ("shoppingcartTotal", shoppingcartTotal);
+    model.addAttribute ("selectedPage", "contact");
+
+return "checkout";
     }
 
     /*
@@ -264,7 +296,7 @@ public class MVCController {
      * error page. Does not catch request mapping errors
      */
     @ExceptionHandler(Exception.class)
-    public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
+public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);

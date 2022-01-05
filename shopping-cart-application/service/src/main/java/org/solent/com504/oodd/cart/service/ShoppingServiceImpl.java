@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 public class ShoppingServiceImpl implements ShoppingService {
-    
+
     @Autowired
     private ShoppingItemCatalogRepository shoppingItemCatalogRepository;
 
@@ -32,10 +32,10 @@ public class ShoppingServiceImpl implements ShoppingService {
     private Map<String, ShoppingItem> itemMap = new ConcurrentHashMap<String, ShoppingItem>();
 
     private List<ShoppingItem> itemlist = Arrays.asList(
-            new ShoppingItem("511","house", 20000.00),
-            new ShoppingItem("611","hen", 5.00),
-            new ShoppingItem("711","car", 5000.00),
-            new ShoppingItem("811","pet alligator", 65.00)
+            new ShoppingItem("511", "house", 20000.00),
+            new ShoppingItem("611", "hen", 5.00),
+            new ShoppingItem("711", "car", 5000.00),
+            new ShoppingItem("811", "pet alligator", 65.00)
     );
 
     public ShoppingServiceImpl() {
@@ -64,9 +64,11 @@ public class ShoppingServiceImpl implements ShoppingService {
     @Override
     public ShoppingItem getNewItemByName(String name) {
         ShoppingItem templateItem = itemMap.get(name);
-        
-        if(templateItem==null) return null;
-        
+
+        if (templateItem == null) {
+            return null;
+        }
+
         ShoppingItem item = new ShoppingItem();
         item.setName(name);
         item.setPrice(templateItem.getPrice());
@@ -97,8 +99,8 @@ public class ShoppingServiceImpl implements ShoppingService {
     }
 
     @Override
-    public ShoppingItem NewAddItem(String name){
-        
+    public ShoppingItem NewAddItem(String name) {
+
         //ShoppingItem item = new ShoppingItem(name, 2000.00);
         //item.setStock(1);
         //return shoppingItemCatalogRepository.save(item);
