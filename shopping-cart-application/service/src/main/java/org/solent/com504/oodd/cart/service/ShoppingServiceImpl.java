@@ -98,12 +98,17 @@ public class ShoppingServiceImpl implements ShoppingService {
         return shoppingItemCatalogRepository.save(item);
     }
 
-    @Override
     public ShoppingItem NewAddItem(String name) {
 
-        //ShoppingItem item = new ShoppingItem(name, 2000.00);
-        //item.setStock(1);
-        //return shoppingItemCatalogRepository.save(item);
-        return null;
+        ShoppingItem item = new ShoppingItem();
+        item.setName(name);
+        item.setUuid("1111");
+        item.setPrice(2000.00);
+
+        return shoppingItemCatalogRepository.save(item);
+
     }
+
+   
+
 }
