@@ -16,8 +16,8 @@
     <div>
         <H1>User Details ${modifyUser.username} </H1>
         <!-- print error message if there is one -->
-        <div style="color:red;">${errorMessage}</div>
-        <div style="color:green;">${message}</div>
+        <div id="error" class="alert alert-danger">${errorMessage}</div>
+        <div class="alert alert-success">${message}</div>
 
         <form action="./viewModifyUser" method="POST">
             <table class="table">
@@ -99,9 +99,9 @@
                         </tbody>
                     </table>
             </c:if>
-
+                <hr>
             <c:if test="${sessionUser.userRole =='ADMINISTRATOR'}">
-                <p>Manage User Status and role </p>
+                <h4>Manage User Status and role </h4>
                 <table class="table">
                     <thead>
                     </thead>
@@ -130,25 +130,36 @@
             </c:if>
 
             <input type="hidden" name="username" value="${modifyUser.username}"/>
-            <button class="btn" type="submit" >Update User ${modifyUser.username}</button>
+            <button class="btn btn-success" type="submit" >Update User ${modifyUser.username}</button>
         </form>
-        <p>Update Password</p>
+        <hr>
+        <h4>Update Password</h4>
         <form action="./viewModifyUser" method="post">
-            <input type="hidden" name="username" value="${modifyUser.username}"/>
-            <input type="hidden" name="action" value="updatePassword"/>
-            <p>Password <input type="password" name="password" ></input></p>
-            <p>Re Enter Password <input type="password" name="password2" ></input></p>
-            <button class="btn" type="submit" >Update ${modifyUser.username} Password</button>
+            <fieldset>
+                <input type="hidden" name="username" value="${modifyUser.username}"/>
+                <input type="hidden" name="action" value="updatePassword"/>
+                <div class="form-group">
+                    <label for="newpass">New Password</label>
+                    <input id="newpass" type="password" name="password" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="reenter">Re-Enter New Password</label>
+                    <input id="reenter" type="password" name="password2" class="form-control" />
+                </div>
+                <button class="btn btn-success" type="submit" >Update ${modifyUser.username} Password</button>
+            </fieldset>
         </form>
         <c:if test="${sessionUser.userRole =='ADMINISTRATOR'}">
-            <BR>
+            <hr>
             <form action="./users">
-                <button class="btn" type="submit" >Return To Users</button>
+                <fieldset>
+                    <button class="btn btn-primary" type="submit" >Return To Users</button>
+                </fieldset>
             </form> 
         </c:if> 
 
-        </div>
+    </div>
 
-    </main>
+</main>
 
 <jsp:include page="footer.jsp" />
