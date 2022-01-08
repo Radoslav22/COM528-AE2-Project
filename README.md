@@ -1,5 +1,5 @@
 # COM528-AE2-Project
-###Contents
+### Contents
 
 1) [Ways to Run](#Ways-to-run)
     1.1 [To run the project using in Netbeans embedded Tomcat server](#To-run-the-project-using-in-Netbeans-embedded-Tomcat-server)
