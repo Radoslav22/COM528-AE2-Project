@@ -21,6 +21,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.solent.com504.oodd.bank.client.impl.BankRestClientImpl;
+import org.solent.com504.oodd.bank.model.client.BankRestClient;
+import org.solent.com504.oodd.bank.model.dto.BankAccount;
+import org.solent.com504.oodd.bank.model.dto.BankTransaction;
+import org.solent.com504.oodd.bank.model.dto.BankTransactionStatus;
+import org.solent.com504.oodd.bank.model.dto.CreditCard;
+import org.solent.com504.oodd.bank.model.dto.TransactionReplyMessage;
+import org.solent.com504.oodd.bank.model.dto.TransactionRequestMessage;
 
 @Controller
 @RequestMapping("/")
@@ -250,11 +258,11 @@ public class MVCController {
     @RequestMapping(value = "/checkout", method = {RequestMethod.GET, RequestMethod.POST})
     public String ChekoutPage(
             @RequestParam(name = "action", required = false) String action,
-            @RequestParam(name = "name", required = false) String Name,
-            @RequestParam(name = "enddate", required = false) String Enddate,
-            @RequestParam(name = "cardnumber", required = false) String Cardnumber,
-            @RequestParam(name = "cvv", required = false) String CVV,
-            @RequestParam(name = "issuenumber", required = false) String Issuenumber,
+            @RequestParam(name = "name", required = false) String name,
+            @RequestParam(name = "enddate", required = false) String enddate,
+            @RequestParam(name = "cardnumber", required = false) String cardnumber,
+            @RequestParam(name = "cvv", required = false) String cvv,
+            @RequestParam(name = "issuenumber", required = false) String issuenumber,
             Model model, HttpSession session
     ) {
 
@@ -262,33 +270,66 @@ public class MVCController {
         User sessionUser = getSessionUser(session);
         model.addAttribute("sessionUser", sessionUser);
         PropertiesDao propertiesDao = WebObjectFactory.getPropertiesDao();
-        
-   
-        if (action == null){
-            
-        }else if (action.equals("submituserdetails")){
-            
-            System.out.println(action);
-            System.out.println(Name);
-            System.out.println(Enddate);
-            System.out.println(Cardnumber);
-            System.out.println(CVV);
 
+        String bankUrl = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.url");
+        String admin_username = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.username");
+        String admin_enddate = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.enddate");
+        String admin_cardnumber = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.cardnumber");
+        String admin_cvv = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.cvv");
+        String admin_issuenumber = propertiesDao.getProperty("org.solent.com504.oodd.cart.web.issuenumber");
+
+        String message = "";
+        String errorMessage = "";
+        BankRestClient client = new BankRestClientImpl(bankUrl);
+        TransactionReplyMessage transaction_reply_message = null;
+        CreditCard fromCard = null;
+        CreditCard toCard = null;
+
+        if (action == null) {
+            
+        } else if (action.equals("submituserdetails")) {
+
+            message = "Successful Order!";
+            
+            fromCard = new CreditCard();
+            fromCard.setName(name);
+            fromCard.setEndDate(enddate);
+            fromCard.setCardnumber(cardnumber);
+            fromCard.setCvv(cvv);
+            fromCard.setIssueNumber(issuenumber);
+            
+            toCard = new CreditCard();
+            toCard.setName(admin_username);
+            toCard.setEndDate(admin_enddate);
+            toCard.setCardnumber(admin_cardnumber);
+            toCard.setCvv(admin_cvv);
+            toCard.setIssueNumber(admin_issuenumber);
+            
+            Double amount = shoppingCart.getTotal();
+            
+            transaction_reply_message = client.transferMoney(fromCard, toCard, amount);
+            Logger logger = LogManager.getLogger(BankTransactionStatus.class);
+            logger.info("Transaction");
+            
+        }else{
+            errorMessage = "Unsuccessful transaction";
         }
-    Double shoppingcartTotal = shoppingCart.getTotal();
+        Double shoppingcartTotal = shoppingCart.getTotal();
 
-    System.out.println (shoppingcartTotal);
-    // used to set tab selected
+        System.out.println(shoppingcartTotal);
+        // used to set tab selected
+        model.addAttribute("message", message);
+        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("transaction_reply_message", transaction_reply_message);
+        model.addAttribute("name", name);
+        model.addAttribute("enddate", enddate);
+        model.addAttribute("cardnumber", cardnumber);
+        model.addAttribute("cvv", cvv);
+        model.addAttribute("issuenumber", issuenumber);
+        model.addAttribute("shoppingcartTotal", shoppingcartTotal);
+        model.addAttribute("selectedPage", "contact");
 
-    model.addAttribute ("name",Name);
-    model.addAttribute ("enddate",Enddate);
-    model.addAttribute ("cardnumber",Cardnumber);
-    model.addAttribute ("cvv",CVV);
-    model.addAttribute ("issuenumber",Issuenumber);
-    model.addAttribute ("shoppingcartTotal", shoppingcartTotal);
-    model.addAttribute ("selectedPage", "contact");
-
-return "checkout";
+        return "checkout";
     }
 
     /*
@@ -296,7 +337,7 @@ return "checkout";
      * error page. Does not catch request mapping errors
      */
     @ExceptionHandler(Exception.class)
-public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
+    public String myExceptionHandler(final Exception e, Model model, HttpServletRequest request) {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);

@@ -16,28 +16,31 @@
 <!-- Begin page content -->
 <main role="main" class="container">
     <H1>Checkout</H1>
+    <div id="error" class="alert alert-danger">${errorMessage}</div>
+    <div class="alert alert-success">${message}</div>
+    
     <h4>The value of your order is: £${shoppingcartTotal}</h4>
     <form action="./checkout" method="POST">
         <fieldset>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input id="name" type="text" name="Name"  class="form-control" required />
+                <input id="name" type="text" name="name"  class="form-control" required />
             </div>
             <div class="form-group">
                 <label for="enddate">End Date</label>
-                <input id="enddate" type="text" name="Enddate"  class="form-control" required />
+                <input id="enddate" type="text" name="enddate"  class="form-control" required />
             </div>
             <div class="form-group">
                 <label for="cardnumber">Card Number</label>
-                <input id="cardnumber" type="text" name="Cardnumber"  class="form-control" required />
+                <input id="cardnumber" type="text" name="cardnumber"  class="form-control" required />
             </div>
             <div class="form-group">
                 <label for="cvv">CVV</label>
-                <input id="cvv" type="text" name="Cvv"  class="form-control" required />
+                <input id="cvv" type="text" name="cvv"  class="form-control" required />
             </div>
             <div class="form-group">
                 <label for="issuenumber">Issue Number</label>
-                <input id="issuenumber" type="text" name="Issuenumber"  class="form-control" required />
+                <input id="issuenumber" type="text" name="issuenumber"  class="form-control" required />
             </div>
             <input type="hidden" name="action" value="submituserdetails">
             <button type="submit" class="btn btn-primary">Finish Order</button>
