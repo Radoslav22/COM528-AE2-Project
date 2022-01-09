@@ -30,6 +30,8 @@ In the admin Bank page use the Bank URL http://com528bank.ukwest.cloudapp.azure.
 - Basket.
 - Managing account info.
 - Checkout.
+# Javadoc
+To view javadoc, open the project using Netbeans then right click on the shoppingCartApplication and select Jenerate Javadoc!
 # Use cases
 | Admin | Action | Response|
 |------|--------|---------|
@@ -76,3 +78,13 @@ Below are two charts one for the user and one for the admin tests. These charts 
 | T7 | User views order in the "my orders" page | application shows all orders and order status on the "my orders" page | FAILED ❌  |
 | T8 | User can log out | redirects them to home page in annonymous mode | PASSED ✅   |
 # Diagrams
+![UML Robustness Diagram drawio](UML-Diagram/RobustnessDiagramCOM528_AE2.png)
+![UML Sequence Diagram drawio](https://github.com/Radoslav22/COM528-AE2-Project/blob/78cf58d2342166ded1a2e2e2577115678e6cecfd/UML-Diagram/SequenceDiagramCOM528_AE2.png)
+# Requirements 
+The brief requirements for the application are:
+- The application uses java technology for the back end, introduced in class.
+- Providing tests of the layers.
+- Logging to help with the debugging.
+- All java classes documented with Javadoc.
+- Robustness/ Sequence UML Diagrams of the project.
+- The code must be compiled. 
