@@ -18,7 +18,14 @@ The system requirements for this application is:
 !!!NOTE!!!: The application is working with Bank Simulator given for the project and using the details for the user inside it.
 You can find the simulator here: http://com528bank.ukwest.cloudapp.azure.com:8080/bank/index.html
 In the admin Bank page use the Bank URL http://com528bank.ukwest.cloudapp.azure.com:8080/bank/rest for the properties.
-
+# Requirements 
+The brief requirements for the application are:
+- The application uses java technology for the back end, introduced in class.
+- Providing tests of the layers.
+- Logging to help with the debugging.
+- All java classes documented with Javadoc.
+- Robustness/ Sequence UML Diagrams of the project.
+- The code must be compiled. 
 # Features 
 ### From Admin side:
 - Modifying users.
@@ -82,11 +89,4 @@ Below are two charts one for the user and one for the admin tests. These charts 
 ![UML Robustness Diagram drawio](https://github.com/Radoslav22/COM528-AE2-Project/blob/035a0dd1bddab549f6be9e7466a57f230608efa4/UML-Diagram/RobustnessDiagramCOM528_AE2.png)
 ### UML Sequence Diagram
 ![UML Sequence Diagram drawio](https://github.com/Radoslav22/COM528-AE2-Project/blob/78cf58d2342166ded1a2e2e2577115678e6cecfd/UML-Diagram/SequenceDiagramCOM528_AE2.png)
-# Requirements 
-The brief requirements for the application are:
-- The application uses java technology for the back end, introduced in class.
-- Providing tests of the layers.
-- Logging to help with the debugging.
-- All java classes documented with Javadoc.
-- Robustness/ Sequence UML Diagrams of the project.
-- The code must be compiled. 
+
