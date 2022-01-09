@@ -15,7 +15,7 @@
     <H1>Create a New Account</H1>
     <div id="error" class="alert alert-danger">${errorMessage}</div>
     <div class="alert alert-success">${message}</div>
-
+    
 
     <p>Username must be unique and password must be at least 8 characters</p>
     <form action="./register" method="POST">
