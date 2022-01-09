@@ -78,7 +78,9 @@ Below are two charts one for the user and one for the admin tests. These charts 
 | T7 | User views order in the "my orders" page | application shows all orders and order status on the "my orders" page | FAILED ❌  |
 | T8 | User can log out | redirects them to home page in annonymous mode | PASSED ✅   |
 # Diagrams
-![UML Robustness Diagram drawio](UML-Diagram/RobustnessDiagramCOM528_AE2.png)
+### UML Robustness Diagram
+![UML Robustness Diagram drawio](https://github.com/Radoslav22/COM528-AE2-Project/blob/035a0dd1bddab549f6be9e7466a57f230608efa4/UML-Diagram/RobustnessDiagramCOM528_AE2.png)
+### UML Sequence Diagram
 ![UML Sequence Diagram drawio](https://github.com/Radoslav22/COM528-AE2-Project/blob/78cf58d2342166ded1a2e2e2577115678e6cecfd/UML-Diagram/SequenceDiagramCOM528_AE2.png)
 # Requirements 
 The brief requirements for the application are:
